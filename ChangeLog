@@ -1,0 +1,37 @@
+2013-05-23  Tetsuya Kimata  <kimata@acapulco.dyndns.org>
+
+	* src/usbrh.c: fix bug: support BLK removal.
+
+	* util/usbrh.sh: Add script for usev.
+
+	* util/10-usbrh.rules: improve: udev rule.
+
+2009-09-05  Tetsuya Kimata  <kimata@acapulco.dyndns.org>
+
+	* util/usbrh.conf: Add modprobe configuration.
+
+	* src/usbrh.c: fix bug: output invalid value if temperature/humidity is more than 85.89.
+
+2008-12-29  Tetsuya Kimata  <kimata@green-rabbit.net>
+
+	* src/usbrh.c: fix bug: calculation of negative temperature.
+
+	* src/usbrh.c: improve: calculation of humidity when temperature
+	is significantly different from 25[C].
+
+2008-07-29  Tetsuya Kimata  <kimata@green-rabbit.net>
+
+	* util/10-usbrh.rules: Add udev rule.
+
+2008-04-05  Tetsuya Kimata  <kimata@green-rabbit.net>
+
+	* src/usbrh.c: improve: able to control LED and heater.
+
+2008-03-18  Tetsuya Kimata  <kimata@green-rabbit.net>
+
+	* src/usbrh.c: fix bug.
+
+2007-06-03  Tetsuya Kimata  <kimata@green-rabbit.net>
+
+	* initial releaase
+

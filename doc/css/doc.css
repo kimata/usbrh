@@ -1,0 +1,217 @@
+@charset "UTF-8";
+
+body { 
+  font-family         : 'Lucida Sans Unicode', Verdana, 'ヒラギノ角ゴ Pro W3', 'ヒラギノ角ゴ3', sans-serif;
+  font-size           : 11pt;
+  
+  margin              : 1em   2em   1em   1em;
+  line-height         : 145%;
+  background-color    : #ffffff;
+  color               : #001100;
+}
+
+a
+{
+  text-decoration     : none
+}
+
+a:link
+{
+  color               : #336633;
+}
+
+a:visited
+{
+  color               : #336633;
+} 
+
+a:hover
+{
+  color               : #669966;
+} 
+
+h1
+{
+  background-color    : #666f66;
+  border-bottom       : 1px solid #333f33;
+  border-left         : 1px solid #666f66;
+  
+  padding             : 0.3em 0.1em 0.1em 0.2em;
+}
+
+h1.title
+{
+  font-size           : large;
+  color               : #001100! important;
+
+  background-color    : #ffffff;
+  border              : none;
+
+  padding             : 0em   0em   0em   0em;
+}
+
+h1, h1 a
+{
+  font-family         : 'Lucida Sans Unicode', Verdana, 'ヒラギノ角ゴ Pro W3', 'ヒラギノ角ゴ3', sans-serif;  
+  font-size           : medium;
+  color               : #ffffff! important;
+}
+
+h2
+{
+  border-bottom       : 2px solid #333f33;
+  
+  padding             : 0.1em 0.1em 0.1em 0.2em;
+}
+
+h2, h2 a
+{
+  font-family         : 'Lucida Sans Unicode', Verdana, 'ヒラギノ角ゴ Pro W3', 'ヒラギノ角ゴ3', sans-serif;  
+  font-size           : medium;
+  color               : #001100! important;
+}
+
+h3
+{
+  border-bottom       : 1px dashed #000033;
+  
+  padding             : 0.1em 0.1em 0.1em 0.2em;
+}
+
+h3, h3 a
+{
+  font-family         : 'Lucida Sans Unicode', Verdana, 'ヒラギノ角ゴ Pro W3', 'ヒラギノ角ゴ3', sans-serif;  
+  font-size           : small;
+  color               : #001100! important;
+}
+
+h4
+{
+  padding             : 0.1em 0.1em 0.1em 0.2em;
+}
+
+h4, h4 a
+{
+  font-family         : 'Lucida Sans Unicode', Verdana, 'ヒラギノ角ゴ Pro W3', 'ヒラギノ角ゴ3', sans-serif;  
+  font-size           : small;
+  color               : #001100! important;
+}
+
+.literal-block
+{
+  font-family         : Consolas, monospace; 
+}
+
+.footnote
+{
+  font-family         : 'Lucida Sans Unicode', Verdana, 'ヒラギノ角ゴ Pro W3', 'ヒラギノ角ゴ3', sans-serif;  
+  font-size           : 10pt;
+}
+
+li p
+{
+  margin              : 0em   0em   0em   0em;
+}
+
+p.topic-title
+{
+  font-size           : 150%;
+}
+
+img
+{
+  border              : 0px;
+}
+
+img.graph
+{
+  float               : right;
+}
+
+img.icon-book
+{
+  float               : right;
+  clear               : both;
+}
+
+pre
+{
+  font-family         : monospace;
+  line-height         : 120%;
+
+  width               : 100%;
+  background-color    : #eef0ee;
+
+  padding             : 0.2em 0em 0.2em 0.5em;
+}
+
+em.keyword
+{
+  font-style          : normal;
+  font-weight         : bold;
+}
+
+em.notice
+{
+  color               : #ff0000;
+}
+
+dd
+{
+  margin              : 0em   0em 0.5em   1em;
+}
+
+ol, dl
+{
+  list-style-position : outside;
+}
+
+hr
+{
+  color               : #003300;
+  height              : 1px;
+}
+
+em
+{
+  font-weight         : bold;
+}
+
+ul
+{
+  line-height         : 120%;
+}
+span.important
+{
+  color               : #ff0000;
+}
+
+
+div.navi_lang
+{
+  float               : right;
+}
+
+div.footer
+{
+  font-family         : "Century Gothic", sans-serif;
+  color               : #336033;
+
+  text-align          : right;
+  margin              : 0em   0em 0.1em   0em;
+}
+
+div.footer p
+{
+  margin              : 0em   0em   0em   0em;
+}
+
+p.validator
+{
+  padding             : 1em   0em   0em   0em;
+}
+
+a[href^="#download"]
+{
+  font-weight         : bold; 
+}

@@ -1,0 +1,5 @@
+# USBRH (http://www2.strawberry-linux.com/products/usbrh/) rules
+# written by Tetsuya KIMATA <kimata@acapulco.dyndns.org>
+# $Id: 10-usbrh.rules 40 2009-09-04 16:13:44Z kimata $
+
+BUS=="usb", SYSFS{manufacturer}=="Strawberry Linux Co.,Ltd.", SYSFS{product}=="Hygrometer/Thermometer", NAME=="%k", RUN+="usbrh.sh '%b:1.0'"
