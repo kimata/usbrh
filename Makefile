@@ -1,10 +1,9 @@
-# $Id: Makefile 40 2009-09-04 16:13:44Z kimata $
 PACKAGE     	:= usbrh
-VERSION     	:= 0.0.8
+VERSION     	:= 0.0.9
 MODULE      	:= usbrh.ko
 
-PKGDIR   		:= $(PACKAGE)-$(VERSION)
-DISTFILE 		:= $(PKGDIR).tgz
+PKGDIR   	:= $(PACKAGE)-$(VERSION)
+DISTFILE 	:= $(PKGDIR).tgz
 
 all:
 	$(MAKE) -C src $@
@@ -18,13 +17,8 @@ install:
 doc:
 	$(MAKE) -C doc
 
-dist: TMPDIR := $(shell mktemp -d -t $(PACKAGE).XXXXXX 2>/dev/null)
 dist:
-	svn export . $(TMPDIR)/$(PKGDIR)
-	rm -rf $(TMPDIR)/$(PKGDIR)/pseudo
-	touch -t `date "+%m%d"`0000 `find $(TMPDIR)`
-	tar zcvf $(DISTFILE) -C $(TMPDIR) $(PKGDIR)
-	rm -Rf $(TMPDIR)
+	git archive --prefix $(PKGDIR)/ master | gzip > $(DISTFILE)
 
 clean:
 	$(MAKE) -C src $@

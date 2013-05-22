@@ -1,14 +1,16 @@
 2013-05-23  Tetsuya Kimata  <kimata@acapulco.dyndns.org>
 
+	* Makefile: change: start to use git.
+
 	* src/usbrh.c: fix bug: support BLK removal.
 
-	* util/usbrh.sh: Add script for usev.
+	* util/usbrh.sh: add: script for usev.
 
 	* util/10-usbrh.rules: improve: udev rule.
 
 2009-09-05  Tetsuya Kimata  <kimata@acapulco.dyndns.org>
 
-	* util/usbrh.conf: Add modprobe configuration.
+	* util/usbrh.conf: add: modprobe configuration.
 
 	* src/usbrh.c: fix bug: output invalid value if temperature/humidity is more than 85.89.
 
@@ -21,7 +23,7 @@
 
 2008-07-29  Tetsuya Kimata  <kimata@green-rabbit.net>
 
-	* util/10-usbrh.rules: Add udev rule.
+	* util/10-usbrh.rules: add: udev rule.
 
 2008-04-05  Tetsuya Kimata  <kimata@green-rabbit.net>
 
