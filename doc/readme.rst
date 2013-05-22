@@ -47,7 +47,7 @@ USBRH の詳しい仕様については `こちら
 Linux Kerel 2.6 以降で動作します．udev を使用していることを想定していま
 す．
 
-開発は， `Gentoo Linux`_ Kernel **2.6.25** で行っています．
+開発は， `Ubuntu Linux`_ Kernel **3.5.0** で行っています．
 
 
 インストール
@@ -228,7 +228,7 @@ LED の制御
 
 .. _`USBRH`:                    http://www2.strawberry-linux.com/products/usbrh/
 .. _`ストロベリーリナックス`:   http://strawberry-linux.com/
-.. _`Gentoo Linux`:             http://www.gentoo.org/
+.. _`Ubuntu Linux`:             http://www.ubuntu.com/
 .. _`SHT11`:                    http://www.sensirion.com/en/02_sensors/03_humidity/00_humidity_temperature_sensor/02_humidity_sensor_sht11.htm
 .. _`データシート`:             http://green-rabbit.sakura.ne.jp/usbrh/sht_datasheet_j.pdf
 .. _`SnoopyPro`:                http://sourceforge.net/projects/usbsnoop/
