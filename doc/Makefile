@@ -5,5 +5,5 @@ all: readme.htm
 clean:
 	rm -f readme.htm
 
-%.htm: %.txt $(CSS)
+%.htm: %.rst $(CSS)
 	rst2html --stylesheet=$(CSS) $< > $@
