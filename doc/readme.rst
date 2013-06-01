@@ -23,7 +23,7 @@ USBRH とは？
    :alt: USBRH
 
 USBRH の詳しい仕様については `こちら
-<http://www2.strawberry-linux.com/products/usbrh/>`_ を参照してください．
+<http://strawberry-linux.com/catalog/items?code=52001>`_ を参照してください．
 
 このページでは，USBRH の Linux 用ドライバを配布しています．
 
@@ -37,9 +37,11 @@ USBRH の詳しい仕様については `こちら
 |download|
 ----------------------------------------------------------------------
 
-* `usbrh-0.0.8.tgz <http://green-rabbit.sakura.ne.jp/usbrh/dist/usbrh-0.0.8.tgz>`_ (`古いバージョン <dist/>`_)
+* `usbrh-0.0.9.tgz <http://green-rabbit.sakura.ne.jp/usbrh/dist/usbrh-0.0.9.tgz>`_ (`古いバージョン <dist/>`_)
 
-
+リポジトリ
+----------------------------------------------------------------------
+`<https://github.com/kimata/usbrh>`_
 
 動作環境
 ----------------------------------------------------------------------

@@ -1,4 +1,12 @@
-2013-05-23  Tetsuya Kimata  <kimata@acapulco.dyndns.org>
+2013-06-01  Tetsuya Kimata  <kimata@green-rabbit.net>
+
+	* doc/readme.rst: fix: document.
+
+	* util/10-usbrh.rules: fix: udev rule.
+
+	* util/usbrh.sh: fix: script for usev.
+
+2013-05-23  Tetsuya Kimata  <kimata@green-rabbit.net>
 
 	* Makefile: change: start to use git.
 
@@ -8,7 +16,7 @@
 
 	* util/10-usbrh.rules: improve: udev rule.
 
-2009-09-05  Tetsuya Kimata  <kimata@acapulco.dyndns.org>
+2009-09-05  Tetsuya Kimata  <kimata@green-rabbit.net>
 
 	* util/usbrh.conf: add: modprobe configuration.
 
