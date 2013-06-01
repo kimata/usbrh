@@ -11,7 +11,6 @@ all:
 install:
 	$(MAKE) -C src $@
 	cp -f util/10-usbrh.rules /etc/udev/rules.d/
-	cp -f util/usbrh.conf /etc/modprobe.d/
 	cp -f util/usbrh.sh /lib/udev/
 
 doc:

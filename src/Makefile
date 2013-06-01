@@ -1,4 +1,3 @@
-# $Id: Makefile 33 2008-07-27 17:47:46Z svn $
 obj-m           := usbrh.o
 cmd-depmod      := depmod
 KERNELDIR       ?= /lib/modules/$(shell uname -r)/build
@@ -12,5 +11,5 @@ install:
 	depmod
 
 clean:
-	rm -f *.o *.ko .*.cmd *.mod.c Module.symvers
+	rm -f *.o *.ko .*.cmd *.mod.c Module.symvers modules.order
 	rm -rf .tmp_versions
