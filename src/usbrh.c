@@ -1,13 +1,12 @@
 /*
  * USRBRH driver
  *
- * Copyright (C) 2008 Tetsuya Kimata <kimata@acapulco.dyndns.org>
+ * Copyright (C) 2008 Tetsuya Kimata <kimata@green-rabbit.net>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, version 2.
  *
- * $Id: usbrh.c 39 2009-09-04 16:11:42Z kimata $
  */
 
 #include <linux/kernel.h>
@@ -24,7 +23,7 @@
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("USBRH driver");
 MODULE_VERSION("0.0.8");
-MODULE_AUTHOR("Tetsuya Kimata, kimata@acapulco.dyndns.org");
+MODULE_AUTHOR("Tetsuya Kimata, kimata@green-rabbit.net");
 
 #define USBRH_NAME              "usbrh"
 
