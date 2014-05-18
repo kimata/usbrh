@@ -360,7 +360,6 @@ static ssize_t usbrh_proc_led_write(struct file *file,
 
 {
     struct usbrh *dev;
-    int len;
 
     if (*off != 0) {
         return 0;
@@ -380,7 +379,6 @@ static ssize_t usbrh_proc_heater_read(struct file *file,
                                       char *buf, size_t count, loff_t *off)
 {
     struct usbrh *dev;
-
     int len;
 
     if (*off != 0) {
@@ -399,7 +397,6 @@ static ssize_t usbrh_proc_heater_write(struct file *file,
 
 {
     struct usbrh *dev;
-    int len;
 
     if (*off != 0) {
         return 0;

@@ -1,3 +1,11 @@
+2014-05-19  Tetsuya Kimata  <kimata@green-rabbit.net>
+
+	* src/usbrh.c: suppor kernel 3.x.
+
+	* util/10-usbrh.rules: fix bug: udev rule malfunction.
+
+	* util/usbrh.sh: fix bug: udev script malfunction.
+
 2013-06-01  Tetsuya Kimata  <kimata@green-rabbit.net>
 
 	* doc/readme.rst: fix: document.
