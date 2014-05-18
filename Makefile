@@ -1,5 +1,5 @@
 PACKAGE     	:= usbrh
-VERSION     	:= 0.0.9
+VERSION     	:= 0.1.0
 MODULE      	:= usbrh.ko
 
 PKGDIR   	:= $(PACKAGE)-$(VERSION)
