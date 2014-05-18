@@ -49,7 +49,7 @@ USBRH の詳しい仕様については `こちら
 Linux Kerel 2.6 以降で動作します．udev を使用していることを想定していま
 す．
 
-開発は， `Ubuntu Linux`_ Kernel **3.5.0** で行っています．
+開発は， `Ubuntu Linux`_ Kernel **3.11.0** で行っています．
 
 
 インストール
