@@ -153,7 +153,7 @@ static int usbrh_read_sensor_onece(struct usbrh *dev,
     result = usb_bulk_msg(dev->udev,
                           usb_rcvbulkpipe(dev->udev, USBRH_SENSOR_ENDPOINT),
                           value, sizeof(*value),
-                          &read_size, msecs_to_jiffies(1000));
+                          &read_size, msecs_to_jiffies(5000));
 
     DEBUG_INFO(&dev->udev->dev, "usb_bulk_msg: %d", result);
 
