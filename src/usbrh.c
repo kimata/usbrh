@@ -246,9 +246,9 @@ static int usbrh_snprint_value(char *buffer, int size, int value)
         value = -value;
     }
     len += snprintf(buffer+len, size-len, "%d.",
-					value/USBRH_FIXED_INT_UNIT);
+                    value/USBRH_FIXED_INT_UNIT);
     len += snprintf(buffer+len, size-len, "%02d",
-					((int)(value*100/USBRH_FIXED_INT_UNIT) % 100));
+                    ((int)(value*100/USBRH_FIXED_INT_UNIT) % 100));
 
     return len;
 }
@@ -266,152 +266,152 @@ int usbrh_proc_close(struct inode *inode, struct file *filp)
 }
 
 static ssize_t usbrh_proc_stat_read(struct file *file,
-									char *buf, size_t count, loff_t *off)
+                                    char *buf, size_t count, loff_t *off)
 {
     struct usbrh *dev;
     struct usbrh_sensor_value value;
     int len;
 
-	if (*off != 0) {
-		return 0;
-	}
+    if (*off != 0) {
+        return 0;
+    }
 
     dev = (struct usbrh *)PDE_DATA(file_inode(file));
     if (usbrh_read_sensor(dev, &value)) {
         return snprintf(buf, count, USBRH_NAME "Failed to get temperature/humierature\n");
     }
-	len = 0;
+    len = 0;
     len += snprintf(buf, count-len, "t:");
     len += usbrh_snprint_value(buf+len, count-len, usbrh_calc_temp(&value));
     len += snprintf(buf+len, count-len , " h:");
     len += usbrh_snprint_value(buf+len, count-len, usbrh_calc_humi(&value));
     len += snprintf(buf+len, count-len, "\n");
-	*off += len;
+    *off += len;
 
     return len;
 }
 
 static ssize_t usbrh_proc_temp_read(struct file *file,
-									char *buf, size_t count, loff_t *off)
+                                    char *buf, size_t count, loff_t *off)
 {
     struct usbrh *dev;
     struct usbrh_sensor_value value;
     int len;
 
-	if (*off != 0) {
-		return 0;
-	}
+    if (*off != 0) {
+        return 0;
+    }
 
     dev = (struct usbrh *)PDE_DATA(file_inode(file));
     if (usbrh_read_sensor(dev, &value)) {
         return snprintf(buf, count, "Failed to get temperature\n");
     }
-	len = 0;
+    len = 0;
     len += usbrh_snprint_value(buf, count-len, usbrh_calc_temp(&value));
     len += snprintf(buf+len, count-len, "\n");
-	*off += len;
+    *off += len;
 
     return len;
 }
 
 static ssize_t usbrh_proc_humi_read(struct file *file,
-									char *buf, size_t count, loff_t *off)
+                                    char *buf, size_t count, loff_t *off)
 {
     struct usbrh *dev;
     struct usbrh_sensor_value value;
     int len;
 
-	if (*off != 0) {
-		return 0;
-	}
+    if (*off != 0) {
+        return 0;
+    }
 
     dev = (struct usbrh *)PDE_DATA(file_inode(file));
     if (usbrh_read_sensor(dev, &value)) {
         return snprintf(buf, count, "Failed to get humidity\n");
     }
 
-	len = 0;
+    len = 0;
     len += usbrh_snprint_value(buf, count-len, usbrh_calc_humi(&value));
     len += snprintf(buf+len, count-len, "\n");
-	*off += len;
+    *off += len;
 
     return len;
 }
 
 static ssize_t usbrh_proc_led_read(struct file *file,
-								   char *buf, size_t count, loff_t *off)
+                                   char *buf, size_t count, loff_t *off)
 {
     struct usbrh *dev;
     int len;
 
-	if (*off != 0) {
-		return 0;
-	}
+    if (*off != 0) {
+        return 0;
+    }
 
     dev = (struct usbrh *)PDE_DATA(file_inode(file));
-	len = snprintf(buf, count, "%d\n", dev->led);
-	*off += len;
+    len = snprintf(buf, count, "%d\n", dev->led);
+    *off += len;
 
     return len;
 }
 
 static ssize_t usbrh_proc_led_write(struct file *file,
-									const char *buf, size_t count, loff_t *off)
+                                    const char *buf, size_t count, loff_t *off)
 
 {
     struct usbrh *dev;
     int len;
 
-	if (*off != 0) {
-		return 0;
-	}
+    if (*off != 0) {
+        return 0;
+    }
 
     dev = (struct usbrh *)PDE_DATA(file_inode(file));
     dev->led = (buf[0] - '0') & 0x3;
 
     usbrh_control_led(dev, 0, (dev->led >> 0) & 0x1);
     usbrh_control_led(dev, 1, (dev->led >> 1) & 0x1);
-	*off += count;
+    *off += count;
 
-	return count;
+    return count;
 }
 
 static ssize_t usbrh_proc_heater_read(struct file *file,
-									  char *buf, size_t count, loff_t *off)
+                                      char *buf, size_t count, loff_t *off)
 {
     struct usbrh *dev;
 
     int len;
 
-	if (*off != 0) {
-		return 0;
-	}
+    if (*off != 0) {
+        return 0;
+    }
 
     dev = (struct usbrh *)PDE_DATA(file_inode(file));
-	len = snprintf(buf, count, "%d\n", dev->heater);
-	*off += len;
+    len = snprintf(buf, count, "%d\n", dev->heater);
+    *off += len;
 
     return len;
 }
 
 static ssize_t usbrh_proc_heater_write(struct file *file,
-									   const char *buf, size_t count, loff_t *off)
+                                       const char *buf, size_t count, loff_t *off)
 
 {
     struct usbrh *dev;
     int len;
 
-	if (*off != 0) {
-		return 0;
-	}
+    if (*off != 0) {
+        return 0;
+    }
 
     dev = (struct usbrh *)PDE_DATA(file_inode(file));
     dev->heater = (buf[0] - '0') & 0x1;
 
-	usbrh_control_heater(dev, dev->heater);
-	*off += count;
+    usbrh_control_heater(dev, dev->heater);
+    *off += count;
 
-	return count;
+    return count;
 }
 
 static const char* USBRH_DIGIT_STR[] = {
@@ -432,7 +432,7 @@ static void usbrh_create_proc(struct usbrh *dev)
     struct proc_dir_entry *proc_dir;
     struct proc_dir_entry *proc_file;
     unsigned int index;
-	umode_t mode;
+    umode_t mode;
     int i;
 
     index = dev->index;
@@ -450,13 +450,13 @@ static void usbrh_create_proc(struct usbrh *dev)
     for (i = 0; USBRH_ENTRY_LIST[i].name != NULL; i++) {
         printk("create: proc_path: %s\n", USBRH_ENTRY_LIST[i].name);
 
-		mode = S_IFREG|S_IRUGO;
+        mode = S_IFREG|S_IRUGO;
         if (usbrh_proc_ops[i].write != NULL) {
-			mode |= S_IWUSR;
-		}
+            mode |= S_IWUSR;
+        }
 
         proc_file = proc_create_data(USBRH_ENTRY_LIST[i].name, mode, proc_dir,
-									 &usbrh_proc_ops[i], dev);
+                                     &usbrh_proc_ops[i], dev);
 
         if (proc_file == NULL) {
             pr_err("Faile to create /proc/" USBRH_NAME "/%d/%s",
@@ -659,7 +659,7 @@ static int __init usbrh_init(void)
     int result;
 
     for (i = 0; i < ARRAY_SIZE(USBRH_ENTRY_LIST); i++) {
-		usbrh_proc_ops[i].owner  = THIS_MODULE;
+        usbrh_proc_ops[i].owner  = THIS_MODULE;
         usbrh_proc_ops[i].open  = usbrh_proc_open;
         usbrh_proc_ops[i].read  = USBRH_ENTRY_LIST[i].read;
         usbrh_proc_ops[i].write = USBRH_ENTRY_LIST[i].write;
