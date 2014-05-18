@@ -448,8 +448,6 @@ static void usbrh_create_proc(struct usbrh *dev)
     }
 
     for (i = 0; USBRH_ENTRY_LIST[i].name != NULL; i++) {
-        printk("create: proc_path: %s\n", USBRH_ENTRY_LIST[i].name);
-
         mode = S_IFREG|S_IRUGO;
         if (usbrh_proc_ops[i].write != NULL) {
             mode |= S_IWUSR;
