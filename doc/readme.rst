@@ -37,7 +37,7 @@ USBRH の詳しい仕様については `こちら
 |download|
 ----------------------------------------------------------------------
 
-* `usbrh-0.0.9.tgz <http://green-rabbit.sakura.ne.jp/usbrh/dist/usbrh-0.0.9.tgz>`_ (`古いバージョン <dist/>`_)
+* `usbrh-0.1.0.tgz <http://green-rabbit.sakura.ne.jp/usbrh/dist/usbrh-0.1.0.tgz>`_ (`古いバージョン <dist/>`_)
 
 リポジトリ
 ----------------------------------------------------------------------

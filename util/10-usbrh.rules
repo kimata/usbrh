@@ -1,4 +1,4 @@
 # USBRH rules
 # written by Tetsuya KIMATA <kimata@green-rabbit.net>
 
-SUBSYSTEMS=="usb", ACTION=="add", ATTR{idVendor}=="1774", ATTR{idProduct}=="1001", RUN+="usbrh.sh '%p'"
+ACTION=="add", ATTR{idVendor}=="1774", ATTR{idProduct}=="1001", RUN+="usbrh.sh '%p'"
