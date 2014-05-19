@@ -278,7 +278,7 @@ static ssize_t usbrh_proc_stat_read(struct file *file,
 
     dev = (struct usbrh *)PDE_DATA(file_inode(file));
     if (usbrh_read_sensor(dev, &value)) {
-        return snprintf(buf, count, USBRH_NAME "Failed to get temperature/humierature\n");
+        return snprintf(buf, count, "Failed to get temperature/humierature\n");
     }
     len = 0;
     len += snprintf(buf, count-len, "t:");
@@ -654,10 +654,10 @@ static int __init usbrh_init(void)
     int result;
 
     for (i = 0; i < ARRAY_SIZE(USBRH_ENTRY_LIST); i++) {
-        usbrh_proc_ops[i].owner  = THIS_MODULE;
-        usbrh_proc_ops[i].open  = usbrh_proc_open;
-        usbrh_proc_ops[i].read  = USBRH_ENTRY_LIST[i].read;
-        usbrh_proc_ops[i].write = USBRH_ENTRY_LIST[i].write;
+        usbrh_proc_ops[i].owner	  = THIS_MODULE;
+        usbrh_proc_ops[i].open	  = usbrh_proc_open;
+        usbrh_proc_ops[i].read	  = USBRH_ENTRY_LIST[i].read;
+        usbrh_proc_ops[i].write	  = USBRH_ENTRY_LIST[i].write;
         usbrh_proc_ops[i].release = usbrh_proc_close;
     }
 
