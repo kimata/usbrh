@@ -654,10 +654,10 @@ static int __init usbrh_init(void)
     int result;
 
     for (i = 0; i < ARRAY_SIZE(USBRH_ENTRY_LIST); i++) {
-        usbrh_proc_ops[i].owner	  = THIS_MODULE;
-        usbrh_proc_ops[i].open	  = usbrh_proc_open;
-        usbrh_proc_ops[i].read	  = USBRH_ENTRY_LIST[i].read;
-        usbrh_proc_ops[i].write	  = USBRH_ENTRY_LIST[i].write;
+        usbrh_proc_ops[i].owner   = THIS_MODULE;
+        usbrh_proc_ops[i].open    = usbrh_proc_open;
+        usbrh_proc_ops[i].read    = USBRH_ENTRY_LIST[i].read;
+        usbrh_proc_ops[i].write   = USBRH_ENTRY_LIST[i].write;
         usbrh_proc_ops[i].release = usbrh_proc_close;
     }
 
