@@ -72,9 +72,9 @@ MODULE_AUTHOR("Tetsuya Kimata, kimata@green-rabbit.net");
 #define USBRH_TEMP(so_t)        USBRH_TEMP_CALC(USBRH_FIXED_VAL(so_t))
 
 #ifdef DEBUG
-#define DEBUG_INFO(...)         dev_info(__VA_ARGS__)
+#define DEBUG_WARN(...)         dev_warn(__VA_ARGS__)
 #else
-#define DEBUG_INFO(...)
+#define DEBUG_WARN(...)
 #endif
 
 static struct usb_device_id usbrh_table [] = {
@@ -131,7 +131,7 @@ static int usbrh_control_msg(struct usbrh *dev, int value, char *buffer)
          USB_DIR_OUT|USB_TYPE_CLASS|USB_RECIP_INTERFACE, // bmRequestType (0x21)
          value, // wValue
          0, // wIndex
-         buffer, USBRH_BUFFER_SIZE, msecs_to_jiffies(100));
+         buffer, USBRH_BUFFER_SIZE, msecs_to_jiffies(1000));
 }
 
 static int usbrh_read_sensor_onece(struct usbrh *dev,
@@ -145,7 +145,7 @@ static int usbrh_read_sensor_onece(struct usbrh *dev,
 
     result = usbrh_control_msg(dev, 0x0200, buffer);
 
-    DEBUG_INFO(&dev->udev->dev, "usb_control_msg: %d", result);
+    DEBUG_WARN(&dev->udev->dev, "usb_control_msg: %d", result);
     if (result < 0) {
         return -1;
     }
@@ -155,7 +155,7 @@ static int usbrh_read_sensor_onece(struct usbrh *dev,
                           value, sizeof(*value),
                           &read_size, msecs_to_jiffies(5000));
 
-    DEBUG_INFO(&dev->udev->dev, "usb_bulk_msg: %d", result);
+    DEBUG_WARN(&dev->udev->dev, "usb_bulk_msg: %d", result);
 
     return ((result == 0) && (read_size == sizeof(*value))) ? 0 : -1;
 }
@@ -188,7 +188,7 @@ static int usbrh_control_led(struct usbrh *dev, unsigned char led_index,
 
     result = usbrh_control_msg(dev, 0x0300, buffer);
 
-    DEBUG_INFO(&dev->udev->dev, "usb_control_msg: %d", result);
+    DEBUG_WARN(&dev->udev->dev, "usb_control_msg: %d", result);
     if (result < 0) {
         return -1;
     }
@@ -207,7 +207,7 @@ static int usbrh_control_heater(struct usbrh *dev, unsigned char is_on)
 
     result = usbrh_control_msg(dev, 0x0300, buffer);
 
-    DEBUG_INFO(&dev->udev->dev, "usb_control_msg: %d", result);
+    DEBUG_WARN(&dev->udev->dev, "usb_control_msg: %d", result);
     if (result < 0) {
         return -1;
     }
@@ -276,11 +276,14 @@ static ssize_t usbrh_proc_stat_read(struct file *file,
         return 0;
     }
 
-    dev = (struct usbrh *)PDE_DATA(file_inode(file));
-    if (usbrh_read_sensor(dev, &value)) {
-        return snprintf(buf, count, "Failed to get temperature/humierature\n");
-    }
     len = 0;
+    dev = (struct usbrh *)PDE_DATA(file_inode(file));
+
+    if (usbrh_read_sensor(dev, &value)) {
+        len += snprintf(buf, count, "Failed to get temperature/humierature\n");
+		*off += len;
+		return len;
+	}
     len += snprintf(buf, count-len, "t:");
     len += usbrh_snprint_value(buf+len, count-len, usbrh_calc_temp(&value));
     len += snprintf(buf+len, count-len , " h:");
@@ -302,11 +305,14 @@ static ssize_t usbrh_proc_temp_read(struct file *file,
         return 0;
     }
 
-    dev = (struct usbrh *)PDE_DATA(file_inode(file));
-    if (usbrh_read_sensor(dev, &value)) {
-        return snprintf(buf, count, "Failed to get temperature\n");
-    }
     len = 0;
+    dev = (struct usbrh *)PDE_DATA(file_inode(file));
+
+    if (usbrh_read_sensor(dev, &value)) {
+        len += snprintf(buf, count, "Failed to get temperature\n");
+		*off += len;
+		return len;
+    }
     len += usbrh_snprint_value(buf, count-len, usbrh_calc_temp(&value));
     len += snprintf(buf+len, count-len, "\n");
     *off += len;
@@ -537,6 +543,7 @@ static ssize_t usbrh_read(struct file *file, char __user *buffer, size_t count,
 
     mutex_lock(&dev->io_mutex);
     if (dev->interface == NULL) {
+		DEBUG_WARN(&dev->udev->dev, "dev->interface is NULL (usbrh%d)", dev->index);
         result = -ENODEV;
         goto exit;
     }
@@ -547,6 +554,7 @@ static ssize_t usbrh_read(struct file *file, char __user *buffer, size_t count,
     }
 
     if (usbrh_read_sensor(dev, &value)) {
+		DEBUG_WARN(&dev->udev->dev, "usbrh_read_sensor FAILED (usbrh%d)", dev->index);
         result = -EIO;
         goto exit;
     }
@@ -557,6 +565,7 @@ static ssize_t usbrh_read(struct file *file, char __user *buffer, size_t count,
     }
 
     if (copy_to_user(buffer, &value, count)) {
+		DEBUG_WARN(&dev->udev->dev, "copy_to_user FAILED (usbrh%d)", dev->index);
         result = -EFAULT;
         goto exit;
     }
