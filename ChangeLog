@@ -1,3 +1,7 @@
+2018-02-05  KIMATA Tetsuya  <kimata@columbia.green-rabbit.net>
+
+	* src/usbrh.c: fix bug: use dynamically allocate memory.
+
 2014-05-19  Tetsuya Kimata  <kimata@green-rabbit.net>
 
 	* src/usbrh.c: suppor kernel 3.x.

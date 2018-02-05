@@ -124,14 +124,27 @@ static struct proc_dir_entry *usbrh_proc_base;
 
 static int usbrh_control_msg(struct usbrh *dev, int value, char *buffer)
 {
-    return usb_control_msg
+    void *dmadata;
+    int ret;
+
+    dmadata = kmemdup(buffer, USBRH_BUFFER_SIZE, GFP_KERNEL);
+
+    if (dmadata == NULL) {
+        return -ENOMEM;
+    }
+
+    ret = usb_control_msg
         (dev->udev,
          usb_sndctrlpipe(dev->udev, 0),
          USB_REQ_SET_CONFIGURATION, // bRequest (0x09)
          USB_DIR_OUT|USB_TYPE_CLASS|USB_RECIP_INTERFACE, // bmRequestType (0x21)
          value, // wValue
          0, // wIndex
-         buffer, USBRH_BUFFER_SIZE, msecs_to_jiffies(1000));
+         dmadata, USBRH_BUFFER_SIZE, msecs_to_jiffies(1000));
+
+    kfree(dmadata);
+
+    return ret;
 }
 
 static int usbrh_read_sensor_onece(struct usbrh *dev,
@@ -140,6 +153,7 @@ static int usbrh_read_sensor_onece(struct usbrh *dev,
     int read_size;
     int result;
     char buffer[USBRH_BUFFER_SIZE];
+    void *dmadata;
 
     memset(buffer, 0, sizeof(buffer));
 
@@ -150,12 +164,20 @@ static int usbrh_read_sensor_onece(struct usbrh *dev,
         return -1;
     }
 
+    dmadata = kmalloc(sizeof(*value), GFP_KERNEL);
+    if (dmadata == NULL) {
+        return -ENOMEM;
+    }
+
     result = usb_bulk_msg(dev->udev,
                           usb_rcvbulkpipe(dev->udev, USBRH_SENSOR_ENDPOINT),
-                          value, sizeof(*value),
+                          dmadata, sizeof(*value),
                           &read_size, msecs_to_jiffies(5000));
 
     DEBUG_WARN(&dev->udev->dev, "usb_bulk_msg: %d", result);
+
+    memcpy(value, dmadata, sizeof(*value));
+    kfree(dmadata);
 
     return ((result == 0) && (read_size == sizeof(*value))) ? 0 : -1;
 }
@@ -281,9 +303,9 @@ static ssize_t usbrh_proc_stat_read(struct file *file,
 
     if (usbrh_read_sensor(dev, &value)) {
         len += snprintf(buf, count, "Failed to get temperature/humierature\n");
-		*off += len;
-		return len;
-	}
+        *off += len;
+        return len;
+    }
     len += snprintf(buf, count-len, "t:");
     len += usbrh_snprint_value(buf+len, count-len, usbrh_calc_temp(&value));
     len += snprintf(buf+len, count-len , " h:");
@@ -310,8 +332,8 @@ static ssize_t usbrh_proc_temp_read(struct file *file,
 
     if (usbrh_read_sensor(dev, &value)) {
         len += snprintf(buf, count, "Failed to get temperature\n");
-		*off += len;
-		return len;
+        *off += len;
+        return len;
     }
     len += usbrh_snprint_value(buf, count-len, usbrh_calc_temp(&value));
     len += snprintf(buf+len, count-len, "\n");
