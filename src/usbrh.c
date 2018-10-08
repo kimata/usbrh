@@ -586,7 +586,7 @@ static ssize_t usbrh_read(struct file *file, char __user *buffer, size_t count,
         count = sizeof(value);
     }
 
-    if (copy_to_user(buffer, &value, count)) {
+    if (raw_copy_to_user(buffer, &value, count)) {
 		DEBUG_WARN(&dev->udev->dev, "copy_to_user FAILED (usbrh%d)", dev->index);
         result = -EFAULT;
         goto exit;
