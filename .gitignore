@@ -1,0 +1,7 @@
+/src/.*
+/src/Module.symvers
+/src/modules.order
+/src/*.ko
+/src/usbrh.mod.*
+/src/*.o
+
