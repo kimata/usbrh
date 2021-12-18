@@ -20,6 +20,11 @@
 #include <linux/proc_fs.h>
 #include <asm/uaccess.h>
 
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5,6,0)
+#define HAVE_PROC_OPS
+#endif
+
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("USBRH driver");
 MODULE_VERSION("0.1.0");
@@ -450,7 +455,11 @@ static const struct usbrh_proc_entry USBRH_ENTRY_LIST[] = {
     { "heater",         usbrh_proc_heater_read, usbrh_proc_heater_write },
     {},
 };
+#ifdef HAVE_PROC_OPS
+static struct proc_ops usbrh_proc_ops[ARRAY_SIZE(USBRH_ENTRY_LIST)] ;
+#else
 static struct file_operations usbrh_proc_ops[ARRAY_SIZE(USBRH_ENTRY_LIST)] ;
+#endif
 
 static void usbrh_create_proc(struct usbrh *dev)
 {
@@ -474,7 +483,11 @@ static void usbrh_create_proc(struct usbrh *dev)
 
     for (i = 0; USBRH_ENTRY_LIST[i].name != NULL; i++) {
         mode = S_IFREG|S_IRUGO;
+#ifdef HAVE_PROC_OPS
+        if (usbrh_proc_ops[i].proc_write != NULL) {
+#else
         if (usbrh_proc_ops[i].write != NULL) {
+#endif
             mode |= S_IWUSR;
         }
 
@@ -685,11 +698,18 @@ static int __init usbrh_init(void)
     int result;
 
     for (i = 0; i < ARRAY_SIZE(USBRH_ENTRY_LIST); i++) {
+#ifdef HAVE_PROC_OPS
+        usbrh_proc_ops[i].proc_open    = usbrh_proc_open;
+        usbrh_proc_ops[i].proc_read    = USBRH_ENTRY_LIST[i].read;
+        usbrh_proc_ops[i].proc_write   = USBRH_ENTRY_LIST[i].write;
+        usbrh_proc_ops[i].proc_release = usbrh_proc_close;
+#else
         usbrh_proc_ops[i].owner   = THIS_MODULE;
         usbrh_proc_ops[i].open    = usbrh_proc_open;
         usbrh_proc_ops[i].read    = USBRH_ENTRY_LIST[i].read;
         usbrh_proc_ops[i].write   = USBRH_ENTRY_LIST[i].write;
         usbrh_proc_ops[i].release = usbrh_proc_close;
+#endif
     }
 
     usbrh_proc_base = proc_mkdir(USBRH_NAME, NULL);
